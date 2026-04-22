@@ -20,8 +20,9 @@ const server = http.createServer((req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = decodeURIComponent(requestUrl.pathname);
   const relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
-  const filePath = path.resolve(baseDir, relativePath);
-  const relativeToBase = path.relative(baseDir, filePath);
+  const normalizedRequestPath = path.normalize(relativePath);
+  const filePath = path.resolve(baseDir, normalizedRequestPath);
+  const relativeToBase = path.normalize(path.relative(baseDir, filePath));
 
   if (relativeToBase.startsWith('..') || path.isAbsolute(relativeToBase)) {
     res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
