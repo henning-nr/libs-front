@@ -1,0 +1,51 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.menu button,
+.demo-section button {
+  border: 1px solid #888;
+  background: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.menu button.active {
+  background: #e8e8e8;
+  border-color: #444;
+}
+
+.demo-section {
+  display: none;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.demo-section.active {
+  display: block;
+}
+
+.text-red {
+  color: red;
+}
