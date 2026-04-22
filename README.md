@@ -9,17 +9,17 @@ node server.js
 
 Abra `http://localhost:3000` no navegador.
 
-## O que o projeto demonstra
+## Rotas disponíveis
 
-No menu da página, você pode alternar entre:
+A página inicial (`/`) lista as rotas das demonstrações:
 
-- JavaScript Puro (Vanilla JS)
-- jQuery
-- React
-- AngularJS
-- W3.JS
+- `/vanilla`
+- `/jquery`
+- `/react`
+- `/angularjs`
+- `/w3js`
 
-Todas implementam a mesma funcionalidade didática: clicar em **"Mudar cor"** para trocar o texto de preto para vermelho.
+Cada rota serve um HTML próprio da biblioteca, carregando somente o script e CDN necessários para aquela implementação.
 
 ## Diferenças de abordagem (resumo)
 

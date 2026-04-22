@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AngularJS</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <script src="/angularjs/app.js" defer></script>
+  </head>
+  <body ng-app="angularDemoApp">
+    <main class="container">
+      <h1>AngularJS</h1>
+      <p><a href="/">Voltar para a raiz</a></p>
+
+      <section class="demo-section active" ng-controller="AngularDemoController as demo">
+        <p ng-style="{ color: demo.textColor }">A cor vai mudar aqui</p>
+        <button ng-click="demo.changeColor()">Mudar cor</button>
+      </section>
+    </main>
+  </body>
+</html>

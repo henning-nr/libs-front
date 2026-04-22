@@ -16,6 +16,20 @@ const contentTypes = {
   '.svg': 'image/svg+xml'
 };
 
+function sendFile(filePath, res) {
+  fs.readFile(filePath, (readError, content) => {
+    if (readError) {
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Erro ao ler arquivo');
+      return;
+    }
+
+    const ext = path.extname(filePath).toLowerCase();
+    res.writeHead(200, { 'Content-Type': contentTypes[ext] || 'application/octet-stream' });
+    res.end(content);
+  });
+}
+
 const server = http.createServer((req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = decodeURIComponent(requestUrl.pathname);
@@ -31,23 +45,33 @@ const server = http.createServer((req, res) => {
   }
 
   fs.stat(filePath, (statError, stats) => {
-    if (statError || !stats.isFile()) {
+    if (statError) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Arquivo não encontrado');
       return;
     }
 
-    fs.readFile(filePath, (readError, content) => {
-      if (readError) {
-        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('Erro ao ler arquivo');
-        return;
-      }
+    if (stats.isFile()) {
+      sendFile(filePath, res);
+      return;
+    }
 
-      const ext = path.extname(filePath).toLowerCase();
-      res.writeHead(200, { 'Content-Type': contentTypes[ext] || 'application/octet-stream' });
-      res.end(content);
-    });
+    if (stats.isDirectory()) {
+      const indexFilePath = path.join(filePath, 'index.html');
+      fs.stat(indexFilePath, (indexStatError, indexStats) => {
+        if (indexStatError || !indexStats.isFile()) {
+          res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end('Arquivo não encontrado');
+          return;
+        }
+
+        sendFile(indexFilePath, res);
+      });
+      return;
+    }
+
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Arquivo não encontrado');
   });
 });
 

@@ -5,79 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Comparativo de Bibliotecas Frontend</title>
     <link rel="stylesheet" href="/styles.css" />
-
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-
-    <script src="/app.js" defer></script>
-    <script src="/vanilla/app.js" defer></script>
-    <script src="/jquery/app.js" defer></script>
-    <script src="/react/app.js" defer></script>
-    <script src="/angularjs/app.js" defer></script>
-    <script src="/w3js/app.js" defer></script>
   </head>
   <body>
     <main class="container">
-      <h1>Comparativo: mesma funcionalidade, bibliotecas diferentes</h1>
+      <h1>Comparativo: mesma funcionalidade em libs diferentes</h1>
+      <p>Escolha uma rota para abrir a versão da biblioteca:</p>
 
       <nav class="menu" aria-label="Bibliotecas frontend">
-        <button data-target="vanilla">JavaScript Puro (Vanilla JS)</button>
-        <button data-target="jquery">jQuery</button>
-        <button data-target="react">React</button>
-        <button data-target="angularjs">AngularJS</button>
-        <button data-target="w3js">W3.JS</button>
+        <a href="/vanilla">/vanilla</a>
+        <a href="/jquery">/jquery</a>
+        <a href="/react">/react</a>
+        <a href="/angularjs">/angularjs</a>
+        <a href="/w3js">/w3js</a>
       </nav>
 
-      <section id="vanilla" class="demo-section">
-        <h2>Vanilla JS</h2>
-        <p id="vanilla-text">A cor vai mudar aqui</p>
-        <button id="vanilla-btn">Mudar cor</button>
-      </section>
-
-      <section id="jquery" class="demo-section">
-        <h2>jQuery</h2>
-        <p id="jquery-text">A cor vai mudar aqui</p>
-        <button id="jquery-btn">Mudar cor</button>
-      </section>
-
-      <section id="react" class="demo-section">
-        <h2>React</h2>
-        <div id="react-root"></div>
-      </section>
-
-      <section
-        id="angularjs"
-        class="demo-section"
-        ng-app="angularDemoApp"
-        ng-controller="AngularDemoController as demo"
-      >
-        <h2>AngularJS</h2>
-        <p ng-style="{ color: demo.textColor }">A cor vai mudar aqui</p>
-        <button ng-click="demo.changeColor()">Mudar cor</button>
-      </section>
-
-      <section id="w3js" class="demo-section">
-        <h2>W3.JS</h2>
-        <p id="w3-text">A cor vai mudar aqui</p>
-        <button onclick="w3ChangeColor()">Mudar cor</button>
-      </section>
-
       <footer>
-        <h3>Diferenças entre abordagens (resumo)</h3>
-        <ul>
-          <li><strong>Vanilla JS:</strong> usa APIs nativas do navegador diretamente.</li>
-          <li><strong>jQuery:</strong> simplifica seleção de elementos e eventos com sintaxe curta.</li>
-          <li><strong>React:</strong> altera a interface via estado do componente.</li>
-          <li><strong>AngularJS:</strong> usa data binding e diretivas no HTML.</li>
-          <li><strong>W3.JS:</strong> fornece utilitários simples para manipular classes e elementos.</li>
-        </ul>
+        <p>
+          Cada rota abre um HTML próprio da biblioteca e carrega somente os scripts/CDNs necessários
+          para aquela implementação.
+        </p>
       </footer>
     </main>
   </body>
