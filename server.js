@@ -20,24 +20,33 @@ const server = http.createServer((req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = decodeURIComponent(requestUrl.pathname);
   const relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
-  const filePath = path.join(baseDir, relativePath);
+  const filePath = path.resolve(baseDir, relativePath);
+  const relativeToBase = path.relative(baseDir, filePath);
 
-  if (!filePath.startsWith(baseDir)) {
+  if (relativeToBase.startsWith('..') || path.isAbsolute(relativeToBase)) {
     res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('Acesso negado');
     return;
   }
 
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
+  fs.stat(filePath, (statError, stats) => {
+    if (statError || !stats.isFile()) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Arquivo não encontrado');
       return;
     }
 
-    const ext = path.extname(filePath).toLowerCase();
-    res.writeHead(200, { 'Content-Type': contentTypes[ext] || 'application/octet-stream' });
-    res.end(content);
+    fs.readFile(filePath, (readError, content) => {
+      if (readError) {
+        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Erro ao ler arquivo');
+        return;
+      }
+
+      const ext = path.extname(filePath).toLowerCase();
+      res.writeHead(200, { 'Content-Type': contentTypes[ext] || 'application/octet-stream' });
+      res.end(content);
+    });
   });
 });
 
